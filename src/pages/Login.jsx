@@ -1,53 +1,42 @@
-// import Header from "../components/Header";
-// import Footer from "../components/Footer";
 import "../styles/login.css";
+import { Link } from "react-router-dom";
 
-import { useState } from "react";
+function Login() {
+  return (
+    <div className="center">
+      <h1>Login</h1>
 
-export default function Login() {
+      <form>
 
- const [username,setUsername] = useState("");
- const [password,setPassword] = useState("");
+        <div className="txt_field">
+          <input type="text" required />
+          <span></span>
+          <label>Username</label>
+        </div>
 
- const submitHandler=(e)=>{
-  e.preventDefault();
+        <div className="txt_field">
+          <input type="password" required />
+          <span></span>
+          <label>Password</label>
+        </div>
 
-  alert("Login Successful");
- };
+        <div className="pass">
+          Forgot Password?
+        </div>
 
- return (
+        <input
+          type="submit"
+          value="Login"
+        />
 
-  <div className="center">
+        <div className="signup_link">
+          Not a member?
+          <Link to="/register"> Signup</Link>
+        </div>
 
-   <h1>Login</h1>
-
-   <form onSubmit={submitHandler}>
-
-    <div className="txt_field">
-      <input
-       type="text"
-       required
-       onChange={(e)=>setUsername(e.target.value)}
-      />
-      <label>Username</label>
+      </form>
     </div>
-
-    <div className="txt_field">
-      <input
-       type="password"
-       required
-       onChange={(e)=>setPassword(e.target.value)}
-      />
-      <label>Password</label>
-    </div>
-
-    <input
-      type="submit"
-      value="Login"
-    />
-
-   </form>
-
-  </div>
- );
+  );
 }
+
+export default Login;

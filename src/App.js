@@ -7,6 +7,7 @@ import Price from "./pages/Price";
 import Review from "./pages/Review";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
