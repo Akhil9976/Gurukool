@@ -1,47 +1,24 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-
+import { useAuth } from "../context/AuthContext";
 import homeImg from "../assets/images/home-img.svg";
 
-function Home() {
-
-  const username =
-  localStorage.getItem("loggedInUser");
+export default function Home() {
+  const { user } = useAuth();
 
   return (
-    <div className="container">
+    <section className="home">
+      <div className="content">
+        <h2>Welcome {user ? (user.name || user.username) : "Guest"}</h2>
 
-      <Header />
+        <h3>E-learning is a better way of learning</h3>
 
-      <section className="home">
+        <p>Learn from experts with modern online courses.</p>
 
-        <div className="content">
-          <h2>
-            Welcome {username || "Guest"}
-          </h2>
-          
-          <h3>
-            E-learning is a better way of learning
-          </h3>
+        <button className="btn">Get Started</button>
+      </div>
 
-          <p>
-            Learn from experts with modern online courses.
-          </p>
-
-          <button className="btn">
-            Get Started
-          </button>
-        </div>
-
-        <div className="image">
-          <img src={homeImg} alt="" />
-        </div>
-
-      </section>
-
-      <Footer />
-    </div>
+      <div className="image">
+        <img src={homeImg} alt="Students learning online" />
+      </div>
+    </section>
   );
 }
-
-export default Home;

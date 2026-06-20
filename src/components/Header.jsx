@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-function Header() {
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const user = localStorage.getItem("loggedInUser");
-  
-  const logout = () => {
-  localStorage.removeItem("loggedInUser");
-  window.location.href = "/";
-};
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header>
@@ -32,29 +32,14 @@ function Header() {
         <Link to="/price">Price</Link>
         <Link to="/review">Review</Link>
         <Link to="/contact">Contact</Link>
-        {
-          user ? (
-           <button
-             className="btn"
-             onClick={logout}
-           >
-             Logout
-           </button>
+        {user ? (
+          <button className="btn" onClick={handleLogout}>
+            Logout
+          </button>
         ) : (
-          <Link to="/login">
-            Login
-          </Link>
-        )
-       }
-        {/* <button
-          className="btn"
-          onClick={logout}
-        >
-          Logout
-        </button> */}
+          <Link to="/login">Login</Link>
+        )}
       </nav>
     </header>
   );
 }
-
-export default Header;

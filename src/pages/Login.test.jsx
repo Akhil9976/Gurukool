@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Login from './Login';
+import { AuthProvider } from '../context/AuthContext';
 
 const mockNavigate = jest.fn();
 
@@ -25,9 +26,11 @@ describe('Login Component', () => {
 
   const renderLogin = () => {
     render(
-      <BrowserRouter>
-        <Login />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>
+      </AuthProvider>
     );
   };
 

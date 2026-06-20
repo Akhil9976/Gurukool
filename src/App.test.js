@@ -7,6 +7,8 @@ jest.mock('react-router-dom', () => ({
   Route: ({ element }) => <div>{element}</div>,
   Link: ({ children, to }) => <a href={to}>{children}</a>,
   useNavigate: () => jest.fn(),
+  Navigate: () => null,
+  Outlet: () => <div>Outlet</div>,
 }), { virtual: true });
 
 test('renders App component without crashing', () => {

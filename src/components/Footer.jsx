@@ -1,27 +1,24 @@
-function Footer() {
+import { Link } from "react-router-dom";
+
+export default function Footer() {
   return (
     <section className="footer">
       <div className="box-container">
-
         <div className="box">
           <h3>About Us</h3>
-          <p>
-            SmartStudy E-Learning Platform
-          </p>
+          <p>Gurukool E-Learning Platform</p>
         </div>
 
         <div className="box">
           <h3>Quick Links</h3>
-
-          <a href="/">Home</a>
-          <a href="/course">Course</a>
-          <a href="/teacher">Teacher</a>
-          <a href="/price">Price</a>
+          <Link to="/">Home</Link>
+          <Link to="/course">Course</Link>
+          <Link to="/teacher">Teacher</Link>
+          <Link to="/price">Price</Link>
         </div>
 
         <div className="box">
           <h3>Contact</h3>
-
           <p>+91 7376351111</p>
           <p>gurukool@gmail.com</p>
           <p>Ghaziabad, India</p>
@@ -34,5 +31,3 @@ function Footer() {
     </section>
   );
 }
-
-export default Footer;

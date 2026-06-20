@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../styles/login.css";
 
-function Register() {
+export default function Register() {
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   const [user, setUser] = useState({
+    name: "",
     username: "",
     email: "",
     password: "",
@@ -19,82 +22,94 @@ function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (user.password !== user.confirmPassword) {
-      alert("Passwords do not match");
+    const result = await register(user);
+
+    if (!result.success) {
+      alert(result.message);
       return;
     }
 
-    localStorage.setItem(
-      "registeredUser",
-      JSON.stringify(user)
-    );
-
     alert("Registration Successful");
-
     navigate("/login");
   };
-  
+
   return (
-    <div className="center">
-      <h1>Register</h1>
+    <div className="auth-page">
+      <div className="center">
+        <h1>Register</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div className="txt_field">
-          <input
-            type="text"
-            name="username"
-            required
-            onChange={handleChange}
-          />
-          <span></span>
-          <label>Username</label>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="txt_field">
+            <input
+              type="text"
+              id="reg-name"
+              name="name"
+              required
+              onChange={handleChange}
+            />
+            <span></span>
+            <label htmlFor="reg-name">Name</label>
+          </div>
 
-        <div className="txt_field">
-          <input
-            type="email"
-            name="email"
-            required
-            onChange={handleChange}
-          />
-          <span></span>
-          <label>Email</label>
-        </div>
+          <div className="txt_field">
+            <input
+              type="text"
+              id="reg-username"
+              name="username"
+              required
+              onChange={handleChange}
+            />
+            <span></span>
+            <label htmlFor="reg-username">Username</label>
+          </div>
 
-        <div className="txt_field">
-          <input
-            type="password"
-            name="password"
-            required
-            onChange={handleChange}
-          />
-          <span></span>
-          <label>Password</label>
-        </div>
+          <div className="txt_field">
+            <input
+              type="email"
+              id="reg-email"
+              name="email"
+              required
+              onChange={handleChange}
+            />
+            <span></span>
+            <label htmlFor="reg-email">Email</label>
+          </div>
 
-        <div className="txt_field">
-          <input
-            type="password"
-            name="confirmPassword"
-            required
-            onChange={handleChange}
-          />
-          <span></span>
-          <label>Confirm Password</label>
-        </div>
+          <div className="txt_field">
+            <input
+              type="password"
+              id="reg-password"
+              name="password"
+              required
+              onChange={handleChange}
+            />
+            <span></span>
+            <label htmlFor="reg-password">Password</label>
+          </div>
 
-        <input type="submit" value="Register" />
+          <div className="txt_field">
+            <input
+              type="password"
+              id="reg-confirm-password"
+              name="confirmPassword"
+              required
+              onChange={handleChange}
+            />
+            <span></span>
+            <label htmlFor="reg-confirm-password">Confirm Password</label>
+          </div>
 
-        <div className="signup_link">
-          Already have an account?
-          <Link to="/login"> Login</Link>
-        </div>
-      </form>
+          <input type="submit" value="Register" />
+
+          <div className="signup_link">
+            Already have an account?
+            <Link to="/login"> Login</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
-
-export default Register;

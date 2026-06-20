@@ -1,75 +1,65 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../styles/login.css";
 
-function Login() {
+export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    const savedUser = JSON.parse(
-      localStorage.getItem("registeredUser")
-    );
+    const result = await login(username, password);
 
-    if (
-      savedUser &&
-      savedUser.username === username &&
-      savedUser.password === password
-    ) {
-        console.log("Login Success")
-        
-        localStorage.setItem(
-        "loggedInUser",
-        savedUser.username
-      );
-
+    if (result.success) {
       navigate("/");
     } else {
-      alert("Invalid Username or Password");
+      alert(result.message);
     }
   };
 
   return (
-    <div className="center">
-      <h1>Login</h1>
+    <div className="auth-page">
+      <div className="center">
+        <h1>Login</h1>
 
-      <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler}>
+          <div className="txt_field">
+            <input
+              type="text"
+              id="username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <span></span>
+            <label htmlFor="username">Username</label>
+          </div>
 
-        <div className="txt_field">
-          <input type="text" id="username" required 
-           onChange={(e) => setUsername(e.target.value)}/>
-          <span></span>
-          <label htmlFor="username">Username</label>
-        </div>
+          <div className="txt_field">
+            <input
+              type="password"
+              id="password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <span></span>
+            <label htmlFor="password">Password</label>
+          </div>
 
-        <div className="txt_field">
-          <input type="password" id="password" required 
-           onChange={(e) => setPassword(e.target.value)}/>
-          <span></span>
-          <label htmlFor="password">Password</label>
-        </div>
+          <div className="pass">Forgot Password?</div>
 
-        <div className="pass">
-          Forgot Password?
-        </div>
+          <input type="submit" value="Login" />
 
-        <input
-          type="submit"
-          value="Login"
-        />
-
-        <div className="signup_link">
-          Not a member?
-          <Link to="/register"> Signup</Link>
-        </div>
-
-      </form>
+          <div className="signup_link">
+            Not a member?
+            <Link to="/register"> Signup</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
-
-export default Login;
