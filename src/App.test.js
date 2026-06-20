@@ -14,3 +14,4 @@ jest.mock('react-router-dom', () => ({
 test('renders App component without crashing', () => {
   render(<App />);
 });
+
