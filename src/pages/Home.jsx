@@ -4,6 +4,10 @@ import Footer from "../components/Footer";
 import homeImg from "../assets/images/home-img.svg";
 
 function Home() {
+
+  const username =
+  localStorage.getItem("loggedInUser");
+
   return (
     <div className="container">
 
@@ -12,6 +16,10 @@ function Home() {
       <section className="home">
 
         <div className="content">
+          <h2>
+            Welcome {username || "Guest"}
+          </h2>
+          
           <h3>
             E-learning is a better way of learning
           </h3>

@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/login.css";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -25,11 +27,16 @@ function Register() {
       return;
     }
 
-    console.log(user);
+    localStorage.setItem(
+      "registeredUser",
+      JSON.stringify(user)
+    );
 
     alert("Registration Successful");
-  };
 
+    navigate("/login");
+  };
+  
   return (
     <div className="center">
       <h1>Register</h1>

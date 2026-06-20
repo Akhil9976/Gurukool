@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const user = localStorage.getItem("loggedInUser");
+  
+  const logout = () => {
+  localStorage.removeItem("loggedInUser");
+  window.location.href = "/";
+};
 
   return (
     <header>
@@ -24,7 +32,26 @@ function Header() {
         <Link to="/price">Price</Link>
         <Link to="/review">Review</Link>
         <Link to="/contact">Contact</Link>
-        <Link to="/login">Login</Link>
+        {
+          user ? (
+           <button
+             className="btn"
+             onClick={logout}
+           >
+             Logout
+           </button>
+        ) : (
+          <Link to="/login">
+            Login
+          </Link>
+        )
+       }
+        {/* <button
+          className="btn"
+          onClick={logout}
+        >
+          Logout
+        </button> */}
       </nav>
     </header>
   );

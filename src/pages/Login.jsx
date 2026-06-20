@@ -1,23 +1,56 @@
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/login.css";
-import { Link } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const savedUser = JSON.parse(
+      localStorage.getItem("registeredUser")
+    );
+
+    if (
+      savedUser &&
+      savedUser.username === username &&
+      savedUser.password === password
+    ) {
+        console.log("Login Success")
+        
+        localStorage.setItem(
+        "loggedInUser",
+        savedUser.username
+      );
+
+      navigate("/");
+    } else {
+      alert("Invalid Username or Password");
+    }
+  };
+
   return (
     <div className="center">
       <h1>Login</h1>
 
-      <form>
+      <form onSubmit={submitHandler}>
 
         <div className="txt_field">
-          <input type="text" required />
+          <input type="text" id="username" required 
+           onChange={(e) => setUsername(e.target.value)}/>
           <span></span>
-          <label>Username</label>
+          <label htmlFor="username">Username</label>
         </div>
 
         <div className="txt_field">
-          <input type="password" required />
+          <input type="password" id="password" required 
+           onChange={(e) => setPassword(e.target.value)}/>
           <span></span>
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
         </div>
 
         <div className="pass">
